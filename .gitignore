@@ -1,0 +1,62 @@
+# ignore OSX files
+/.Trash/
+/Applications/
+/Desktop/
+/Documents/
+/Downloads/
+/Google\ Drive/
+/Library/
+/Movies/
+/Music/
+/Pictures/
+/Projects/
+/Public/
+
+.npm/
+.node-gyp
+
+lib-cov
+*.seed
+*.log
+*.dat
+*.out
+*.pid
+*.gz
+
+vim/bundle/*
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+# ignore Apple DS Store
+*.DS_Store
+
+# ignore IntelliJ project files
+*.idea
+*.iml
+\#*\#
+
+# ignore the log directry
+logs/
+
+# ignore log files
+*.log
+
+# ignore swap files
+*.swp
+
+# ignore tags file
+tags
+
+# emacs turds
+*~
+
+# pid files
+*.pid
+
+# C temp files
+*.[oa]
