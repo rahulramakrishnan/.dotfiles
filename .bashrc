@@ -3,11 +3,11 @@ export EDITOR=vim
 export UBER_HOME="$HOME/Uber"
 export UBER_OWNER="rahulr@uber.com"
 export UBER_LDAP_UID="rahulr"
-export PATH=$(brew --prefix)/sbin:$(brew --prefix)/bin:$PATH:$HOME/bin
+# export PATH=$(brew --prefix)/sbin:$(brew --prefix)/bin:$PATH:$HOME/bin
 export VAGRANT_DEFAULT_PROVIDER=aws
 [ -s "/usr/local/bin/virtualenvwrapper.sh" ] && . /usr/local/bin/virtualenvwrapper.sh
 [ -s "$HOME/.nvm/nvm.sh" ] && . $HOME/.nvm/nvm.sh
-type "brew" &>/dev/null && [ -s "$(brew --prefix)/etc/bash_completion" ] && . $(brew --prefix)/etc/bash_completion
+# type "brew" &>/dev/null && [ -s "$(brew --prefix)/etc/bash_completion" ] && . $(brew --prefix)/etc/bash_completion
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 cdsync () {
@@ -20,18 +20,19 @@ opensync () {
     open $(boxer sync_dir $@)
 }
 
-# Rahul Ramakrishnan Bash RC
+# Bash RC
 
 # git completion
-# source ~/src/dotfiles/bash_scripts/git-completion.sh
-# source ~/.git-prompt.sh
+source ~/dotfiles/bash_scripts/git-completion.sh
+source ~/dotfiles/.bash_prompt.sh
 
 # convenient command to open a dir and list files
 # set a blazingly fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 0
+# defaults write NSGlobalDomain KeyRepeat -int 0
 export PATH="/usr/local/sbin:$PATH"
 export PATH=$PATH:$HOME/bin
 
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # aliases
 # cs = cd + ls
@@ -47,6 +48,7 @@ function cx() {
 }
 alias tmux="export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock; tmux"
 alias dbc="mysql -puber -uuber"
+
 
 RED='\[\033[31m\]'
 GREEN='\[\033[32m\]'

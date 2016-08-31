@@ -5,8 +5,8 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
 
 " Plugin 'VundleVim/Vundle.vim' " let vundle manage vundle
 " Plugin 'scrooloose/nerdtree'  " file explorer
@@ -23,7 +23,7 @@ call vundle#begin()
 " Plugin 'vim-auto-save'        " Auto save
 " Plugin 'vim-javascript'       " javascript syntax helper
 
-call vundle#end()
+" call vundle#end()
 filetype plugin indent on
 
 
