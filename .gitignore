@@ -52,6 +52,9 @@ logs/
 # ignore tags file
 tags
 
+# ignore temp files
+*.tmp
+
 # emacs turds
 *~
 
