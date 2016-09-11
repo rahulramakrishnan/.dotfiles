@@ -28,7 +28,8 @@
     cm = commit
     cma = commit --amend
     co = checkout
-    df = diff
+    diffm = diff master --name-only
+    update = checkout master && pull origin master && checkout - && rebase master
     lg = log --oneline --graph
     lgl = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     st = status
