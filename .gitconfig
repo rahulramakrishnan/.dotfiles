@@ -32,6 +32,7 @@
     lg = log --oneline --graph
     lgl = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     pom = pull origin master
+    ram = rebase master
     rim = rebase -i master
     st = status
     standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author rahul
