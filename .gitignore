@@ -63,3 +63,6 @@ tags
 
 # C temp files
 *.[oa]
+
+# unison files
+*.unison.*

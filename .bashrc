@@ -47,16 +47,6 @@ function cx() {
   fi
 }
 alias tmux="export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock; tmux"
-fixssh() {
-    for key in SSH_AUTH_SOCK SSH_CONNECTION SSH_CLIENT;  do     
-         if (tmux show-environment | grep "^${key}" > /dev/null); then       
-               value=`tmux show-environment | grep "^${key}" | sed -e "s/^[A-Z_]*=//"`;       
-         export ${key}="${value}";     
-         fi;   
-    done; 
-}
-fixssh
-
 
 RED='\[\033[31m\]'
 GREEN='\[\033[32m\]'
