@@ -8,26 +8,27 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim' " let vundle manage vundle
 Plugin 'vim-scripts/indentpython.vim'  " python auto indentation
-" Plugin 'scrooloose/syntastic' " syntax checker
-" Plugin 'nvie/vim-flake8'  " PEP-8 checker
-Plugin 'jnurmine/Zenburn'  " Low contrast colorscheme
-Plugin 'scrooloose/nerdtree'  " File explorer
+Plugin 'jnurmine/Zenburn'         " low contrast colorscheme
+Plugin 'scrooloose/nerdtree'      " file explorer
 Plugin 'jistr/vim-nerdtree-tabs'  " Nerdtree Tabs
-Plugin 'tpope/vim-fugitive'   " git integration
-Plugin 'kien/ctrlp.vim'       " fuzzy file explorer
+Plugin 'tpope/vim-fugitive'       " git integration
+Plugin 'kien/ctrlp.vim'           " fuzzy file explorer
 Plugin 'vim-airline/vim-airline'  " status line
-" Plugin 'tpope/vim-surround'   " quoting and parenthesis
-" Plugin 'majutsushi/tagbar'    " class outline viewer
-" Plugin 'Valloric/YouCompleteMe'  " auto complete
-" Plugin 'jiangmiao/auto-pairs' " auto close parenthesis
-" Plugin 'vim-auto-save'        " Auto save
+Plugin 'majutsushi/tagbar'        " class outline viewer
+Plugin 'bitc/vim-bad-whitespace'  " highlight bad whitespace
+" Plugin 'scrooloose/syntastic'   " syntax checker
+" Plugin 'nvie/vim-flake8'        " PEP-8 checker
+" Plugin 'tpope/vim-surround'     " quoting and parenthesis
+" Plugin 'Valloric/YouCompleteMe' " auto complete
+" Plugin 'jiangmiao/auto-pairs'   " auto close parenthesis
+" Plugin 'vim-auto-save'          " Auto save
 call vundle#end()
-filetype plugin indent on
+filetype plugin on
 
 
 " ---------------------- Colors ------------------------------
 syntax enable
-colorscheme zenburn
+" colorscheme zenburn
 " set background=dark
 " colorscheme solarized
 
@@ -45,7 +46,6 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 " flag unnecessary whitespace
 " au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-" Show trailing whitespace:
 " utf-8
 set encoding=utf-8
 
@@ -53,7 +53,11 @@ set encoding=utf-8
 " ---------------------- UI & Config--------------------------
 set number          " show line numbers
 set showcmd         " show command in bottom bar
-" set cursorline      " highlight current line
+set cursorline      " highlight current line
+hi cursorline cterm=none term=none
+" only show cursorline in current buffer
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
 filetype indent on  " load filetype-specific indent files
 set wildmenu        " visual autocomplete for command menu
 set lazyredraw      " redraw only when we need to.
@@ -76,6 +80,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 "Swap top/bottom or left/right split with Ctrl+W R
+"Remove dash in vim split
+:set fillchars+=vert:\ 
 
 " ---------------------- Plugin Customization ---------------
 
@@ -88,10 +94,9 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore pyc files in NERDTree
 
 " Ctrl P
 set runtimepath^=~/.vim/bundle/ctrlp.vim   " Add ctrp to vim path
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc   " MacOSX/Linux
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-" let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
-" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']  " Ignore files in gitignore
+set wildignore+=*/tmp/*,*/env/*,*.so,*.swp,*.zip,*.pyc,*.unison
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']  " Ignore files in gitignore
 
 " Auto Save
 " let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -99,6 +104,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc   " MacOSX/Linux
 " let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
 
 " Airline
+" Enable the list of buffers
+" let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+" let g:airline#extensions#tabline#fnamemod = ':t'
 
 " Python w/ VirtualEnv Support
 py << EOF
@@ -116,3 +125,5 @@ syntax on
 
 " System Clipboard
 set clipboard=unnamed
+" No Swap Files
+set noswapfile
