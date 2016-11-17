@@ -66,3 +66,6 @@ tags
 
 # unison files
 *.unison.*
+
+# ignore coverage files
+*coverage.*
