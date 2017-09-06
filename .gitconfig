@@ -1,10 +1,43 @@
 [diff]
     tool = vimdiff
+
 [user]
     name = Rahul Ramakrishnan
     email = rahulr@uber.com
+
 [core]
     excludesfile = /Users/rahul/.gitignore
+
+[push]
+    default = matching
+
+[branch]
+        autosetuprebase = always
+
+[rerere]
+        enabled = true
+
+[merge]
+    tool = vimdiff
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+[url "ssh://gitolite@code.uber.internal/"]
+        insteadOf = git://code.uber.internal/
+[url "ssh://git@github.com/uber/"]
+        insteadOf = https://github.com/uber/
+[url "ssh://code.uber.internal/"]
+        insteadOf = https://code.uber.internal/
+[url "ssh://config.uber.internal/"]
+        insteadOf = https://config.uber.internal/
+[http "https://gopkg.uberinternal.com"]
+        followRedirects = true
+[http "https://gopkg.in"]
+        followRedirects = true
+
 [color]
     branch = auto
     diff = auto
@@ -23,6 +56,7 @@
     added = yellow
     changed = green
     untracked = cyan
+
 [alias]
     br = branch
     cm = commit
@@ -37,19 +71,3 @@
     st = status
     standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author rahul
     update = checkout master && pull origin master && checkout - && rebase master
-[push]
-    default = matching
-[merge]
-    tool = vimdiff
-[branch]
-    autosetuprebase = always
-[rerere]
-    enabled = true
-[url "ssh://git@github.com/uber/"]
-    insteadOf = https://github.com/uber/
-[url "ssh://gitolite@code.uber.internal/"]
-    insteadOf = git://code.uber.internal/
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
