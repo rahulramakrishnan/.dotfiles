@@ -69,3 +69,6 @@ tags
 
 # ignore coverage files
 *coverage.*
+
+# ignore go lang files
+vendor/*
