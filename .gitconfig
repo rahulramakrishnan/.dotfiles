@@ -2,8 +2,8 @@
     tool = vimdiff
 
 [user]
-    name = Rahul Ramakrishnan
-    email = rahulr@uber.com
+	name = Rahul Ramakrishnan
+	email = rahulr@uber.com
 
 [core]
     excludesfile = /Users/rahul/.gitignore
@@ -21,9 +21,10 @@
     tool = vimdiff
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 
 [url "ssh://gitolite@code.uber.internal/"]
         insteadOf = git://code.uber.internal/
@@ -63,8 +64,8 @@
     cma = commit --amend
     co = checkout
     diffm = diff master --name-only
-    lg = log --oneline --graph
-    lgl = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    lgl = log --oneline --graph
+    lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     pom = pull origin master
     ram = rebase master
     rim = rebase -i master
