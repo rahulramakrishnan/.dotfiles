@@ -12,6 +12,9 @@
 /Projects/
 /Public/
 
+# ignore visual studio files
+./.vscode/*
+
 .npm/
 .node-gyp
 

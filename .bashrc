@@ -41,14 +41,18 @@ function cx() {
 # Tmux auto port forwarding
 alias tmux="export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock; tmux"
 
-# --- Customize bash prompt
-parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-export PS1='$(if [[ $? == 0 ]]; then echo "\[\e[32m\]:)"; else echo "\[\e[31m\]:("; fi)\[\e[0m\] \u \w $(parse_git_branch) $ '
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # MySQL configurations
 export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+
+# CSS Custom Configurations
+
+# sudo ifconfig lo0 alias 192.168.99.100
+
+# Connect -> maps localhost to a static IP
+function connect() {
+  sudo ifconfig lo0 alias 192.168.99.100
+}
+
+export CSS_HOME="$HOME/css"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
