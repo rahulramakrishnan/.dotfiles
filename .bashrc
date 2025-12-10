@@ -1,31 +1,25 @@
-# Homebrew customizations
-brew analytics off 2>&1 >/dev/null
-
-# ---- GoLang configurations ----
+# ---- GoLang ----
 
 # GoLang path
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
-# GoLang clone
-goclone() {
-  mkdir -p $GOPATH/src/code.uber.internal/$1
-  git clone gitolite@code.uber.internal:$1 $GOPATH/src/code.uber.internal/$1 --recursive
-}
+# ---- Fuzzy Reverse Search ----
 
-# ---- Git Configurations ----
+# FZF Configuration
+if [ -d "$HOME/.fzf" ]; then
+    # Add to path
+    export PATH="$HOME/.fzf/bin:$PATH"
 
-# git auto completion
-source ~/.dotfiles/scripts/git-completion.sh
+    # Auto-completion
+    [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
 
-# git rebase against latest master
-function update() {
-  git checkout master && git pull origin master && git checkout - && git rebase master
-}
+    # Key bindings
+    source "$HOME/.fzf/shell/key-bindings.zsh"
+fi
 
+# ---- Aliases ----
 
-
-# ---- CLI aliases ----
 # cx = cd + ls
 function cx() {
   if [ -d "env" ] ; then
@@ -38,21 +32,3 @@ function cx() {
   fi
 }
 
-# Tmux auto port forwarding
-alias tmux="export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock; tmux"
-
-# MySQL configurations
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
-
-# CSS Custom Configurations
-
-# sudo ifconfig lo0 alias 192.168.99.100
-
-# Connect -> maps localhost to a static IP
-function connect() {
-  sudo ifconfig lo0 alias 192.168.99.100
-}
-
-export CSS_HOME="$HOME/css"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

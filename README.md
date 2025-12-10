@@ -1,6 +1,11 @@
-# .dotfiles
-Custom Dotfiles
+# How to use
 
-iTerm 2 theme
--------------
-https://draculatheme.com/iterm/
+## Install and symlink everything
+```
+make
+```
+
+## Remove symlinks
+```
+make clean
+```

@@ -3,7 +3,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/rahulramakrishnan/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -68,10 +68,6 @@ plugins=(
   osx,
 )
 
-# custom configuration
-
-export CSS_HOME="$HOME/css"
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -114,38 +110,22 @@ function cx() {
 }
 
 
-# tmux auto port forwarding
-alias tmux="export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock; tmux"
-
-# connect -> maps localhost to a static IP
-function connect() {
-  sudo ifconfig lo0 alias 192.168.99.100
-}
-
-# sudo ifconfig lo0 alias 192.168.99.100
-# homebrew customizations
-brew analytics off 2>&1 >/dev/null
-
-# golang Configurations ----
+# --- GoLang ----
 
 # golang path
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
-# git configurations ----
-
-# git auto completion
-# source ~/.dotfiles/scripts/git-completion.sh
-
-# git rebase against latest master
-function update() {
-  git checkout master && git pull origin master && git checkout - && git rebase master
-}
-
-
-# MySQL configurations
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
-
 source $ZSH/oh-my-zsh.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# FZF Configuration
+if [ -d "$HOME/.fzf" ]; then
+    # Add to path
+    export PATH="$HOME/.fzf/bin:$PATH"
+
+    # Auto-completion
+    [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+
+    # Key bindings
+    source "$HOME/.fzf/shell/key-bindings.zsh"
+fi
