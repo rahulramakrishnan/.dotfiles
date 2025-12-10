@@ -3,7 +3,7 @@
 
 [user]
 	name = Rahul Ramakrishnan
-	email = rahulr@uber.com
+	email = rahul.ramakrishnan10@gmail.com
 
 [core]
     excludesfile = /Users/rahul/.gitignore
@@ -25,19 +25,6 @@
 	smudge = git-lfs smudge -- %f
 	required = true
 	process = git-lfs filter-process
-
-[url "ssh://gitolite@code.uber.internal/"]
-        insteadOf = git://code.uber.internal/
-[url "ssh://git@github.com/uber/"]
-        insteadOf = https://github.com/uber/
-[url "ssh://code.uber.internal/"]
-        insteadOf = https://code.uber.internal/
-[url "ssh://config.uber.internal/"]
-        insteadOf = https://config.uber.internal/
-[http "https://gopkg.uberinternal.com"]
-        followRedirects = true
-[http "https://gopkg.in"]
-        followRedirects = true
 
 [color]
     branch = auto
@@ -65,10 +52,12 @@
     co = checkout
     diffm = diff master --name-only
     lgl = log --oneline --graph
+    lge = log --format='%H %aN %aE'
     lg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-    pom = pull origin master
-    ram = rebase master
-    rim = rebase -i master
+    pom = pull origin main
+    ram = rebase main
+    rim = rebase -i main
+    pum = push origin main
     st = status
     standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author rahul
     update = checkout master && pull origin master && checkout - && rebase master
