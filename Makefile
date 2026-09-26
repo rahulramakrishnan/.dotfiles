@@ -9,9 +9,46 @@ ZSH_DIR := $(HOME)/.oh-my-zsh
 # Fuzzy reverse search directory.
 FZF_DIR := $(HOME)/.fzf
 
+# Homebrew may not be on PATH yet (e.g. right after installing it), so look in
+# the default Apple Silicon and Intel locations too. Recursive (=) so it is
+# re-evaluated after the homebrew target has run.
+BREW = $(shell command -v brew || ls /opt/homebrew/bin/brew /usr/local/bin/brew 2>/dev/null | head -1)
+
 # Default target
 .PHONY: install
-install: symlink oh-my-zsh fzf
+install: homebrew gh symlink oh-my-zsh fzf gh-auth
+
+.PHONY: homebrew
+homebrew:
+	@if [ -z "$(BREW)" ]; then \
+		echo "🍺 Homebrew not found. Installing..."; \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+		echo "✅ Homebrew installed successfully."; \
+	else \
+		echo "⚡ Homebrew is already installed."; \
+	fi
+
+# GitHub CLI.
+.PHONY: gh
+gh: homebrew
+	@if ! "$(BREW)" list gh >/dev/null 2>&1; then \
+		echo "🐙 gh not found. Installing..."; \
+		"$(BREW)" install gh && \
+		echo "✅ gh installed successfully."; \
+	else \
+		echo "⚡ gh is already installed."; \
+	fi
+
+# Interactive: prompts for how to log in to GitHub. Skipped if already logged in.
+.PHONY: gh-auth
+gh-auth: gh
+	@GH="$$(dirname "$(BREW)")/gh"; \
+	if ! "$$GH" auth status >/dev/null 2>&1; then \
+		echo "🔑 Logging in to GitHub..."; \
+		"$$GH" auth login; \
+	else \
+		echo "⚡ gh is already logged in."; \
+	fi
 
 .PHONY: symlink
 symlink:
