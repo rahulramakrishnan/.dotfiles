@@ -25,7 +25,7 @@ TPM_DIR := $(HOME)/.tmux/plugins/tpm
 
 # Default target
 .PHONY: install
-install: homebrew gh tmux tpm symlink oh-my-zsh powerlevel10k zsh-plugins fzf fd nerdfont gh-auth
+install: homebrew gh tmux tpm symlink oh-my-zsh powerlevel10k zsh-plugins fzf fd tig nerdfont gh-auth
 
 .PHONY: homebrew
 homebrew:
@@ -137,6 +137,17 @@ fd: homebrew
 		echo "✅ fd installed successfully."; \
 	else \
 		echo "⚡ fd is already installed."; \
+	fi
+
+# tig - Text-mode interface for git
+.PHONY: tig
+tig: homebrew
+	@if ! "$(BREW)" list tig >/dev/null 2>&1; then \
+		echo "🌳 tig not found. Installing..."; \
+		"$(BREW)" install tig && \
+		echo "✅ tig installed successfully."; \
+	else \
+		echo "⚡ tig is already installed."; \
 	fi
 
 # tmux - Terminal multiplexer
