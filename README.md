@@ -12,6 +12,7 @@ This symlinks the dotfiles into `~` and installs:
 - **Powerlevel10k** — Modern zsh theme with instant prompt
 - **Zsh plugins** — Syntax highlighting and autosuggestions
 - **fzf** — Fuzzy reverse search (Ctrl-R) into `~/.fzf`
+- **fd** — Fast alternative to find command
 - **Nerdfont** — Meslo Nerd Font for terminal icons
 
 Each can also be installed individually:
@@ -22,6 +23,7 @@ make oh-my-zsh       # Install Oh My Zsh
 make powerlevel10k   # Install Powerlevel10k theme
 make zsh-plugins     # Install zsh plugins
 make fzf             # Install fzf
+make fd              # Install fd (fast find)
 make nerdfont        # Install Meslo Nerd Font
 make gh-auth         # Authenticate with GitHub
 ```

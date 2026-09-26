@@ -22,7 +22,7 @@ BREW = $(shell command -v brew || ls /opt/homebrew/bin/brew /usr/local/bin/brew 
 
 # Default target
 .PHONY: install
-install: homebrew gh symlink oh-my-zsh powerlevel10k zsh-plugins fzf nerdfont gh-auth
+install: homebrew gh symlink oh-my-zsh powerlevel10k zsh-plugins fzf fd nerdfont gh-auth
 
 .PHONY: homebrew
 homebrew:
@@ -123,6 +123,17 @@ fzf:
 		echo "✅ FZF installed successfully."; \
 	else \
 		echo "⚡ FZF is already installed."; \
+	fi
+
+# fd - A fast alternative to find
+.PHONY: fd
+fd: homebrew
+	@if ! "$(BREW)" list fd >/dev/null 2>&1; then \
+		echo "🔎 fd not found. Installing..."; \
+		"$(BREW)" install fd && \
+		echo "✅ fd installed successfully."; \
+	else \
+		echo "⚡ fd is already installed."; \
 	fi
 
 # Nerdfont for terminal icons (Meslo Nerd Font)
