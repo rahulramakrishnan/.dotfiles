@@ -20,9 +20,12 @@ ZSH_PLUGINS_DIR := $(ZSH_DIR)/custom/plugins
 # re-evaluated after the homebrew target has run.
 BREW = $(shell command -v brew || ls /opt/homebrew/bin/brew /usr/local/bin/brew 2>/dev/null | head -1)
 
+# Tmux Plugin Manager directory.
+TPM_DIR := $(HOME)/.tmux/plugins/tpm
+
 # Default target
 .PHONY: install
-install: homebrew gh symlink oh-my-zsh powerlevel10k zsh-plugins fzf fd nerdfont gh-auth
+install: homebrew gh tmux tpm symlink oh-my-zsh powerlevel10k zsh-plugins fzf fd nerdfont gh-auth
 
 .PHONY: homebrew
 homebrew:
@@ -134,6 +137,31 @@ fd: homebrew
 		echo "✅ fd installed successfully."; \
 	else \
 		echo "⚡ fd is already installed."; \
+	fi
+
+# tmux - Terminal multiplexer
+.PHONY: tmux
+tmux: homebrew
+	@if ! "$(BREW)" list tmux >/dev/null 2>&1; then \
+		echo "🪟 tmux not found. Installing..."; \
+		"$(BREW)" install tmux && \
+		echo "✅ tmux installed successfully."; \
+	else \
+		echo "⚡ tmux is already installed."; \
+	fi
+
+# Tmux Plugin Manager - for managing tmux plugins (resurrection, continuum, etc.)
+# Provides automatic session restoration and periodic backups
+.PHONY: tpm
+tpm: tmux
+	@if [ ! -d "$(TPM_DIR)" ]; then \
+		echo "🔌 Tmux Plugin Manager not found. Cloning..."; \
+		mkdir -p "$(HOME)/.tmux/plugins" && \
+		git clone --depth 1 https://github.com/tmux-plugins/tpm.git "$(TPM_DIR)" && \
+		echo "✅ Tmux Plugin Manager installed successfully."; \
+		echo "⚠️  After reloading tmux, press <prefix> + I to install tmux plugins"; \
+	else \
+		echo "⚡ Tmux Plugin Manager is already installed."; \
 	fi
 
 # Nerdfont for terminal icons (Meslo Nerd Font)
