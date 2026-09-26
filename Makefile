@@ -9,6 +9,12 @@ ZSH_DIR := $(HOME)/.oh-my-zsh
 # Fuzzy reverse search directory.
 FZF_DIR := $(HOME)/.fzf
 
+# Powerlevel10k theme directory.
+P10K_DIR := $(ZSH_DIR)/custom/themes/powerlevel10k
+
+# Zsh plugins directory.
+ZSH_PLUGINS_DIR := $(ZSH_DIR)/custom/plugins
+
 # Homebrew may not be on PATH yet (e.g. right after installing it), so look in
 # the default Apple Silicon and Intel locations too. Recursive (=) so it is
 # re-evaluated after the homebrew target has run.
@@ -16,7 +22,7 @@ BREW = $(shell command -v brew || ls /opt/homebrew/bin/brew /usr/local/bin/brew 
 
 # Default target
 .PHONY: install
-install: homebrew gh symlink oh-my-zsh fzf gh-auth
+install: homebrew gh symlink oh-my-zsh powerlevel10k zsh-plugins fzf nerdfont gh-auth
 
 .PHONY: homebrew
 homebrew:
@@ -78,6 +84,34 @@ oh-my-zsh:
 		echo "⚡ Oh My Zsh is already installed."; \
 	fi
 
+# Powerlevel10k theme for oh-my-zsh
+.PHONY: powerlevel10k
+powerlevel10k: oh-my-zsh
+	@if [ ! -d "$(P10K_DIR)" ]; then \
+		echo "🎨 Powerlevel10k not found. Cloning..."; \
+		git clone --depth 1 https://github.com/romkatv/powerlevel10k.git "$(P10K_DIR)" && \
+		echo "✅ Powerlevel10k installed successfully."; \
+	else \
+		echo "⚡ Powerlevel10k is already installed."; \
+	fi
+
+# Zsh plugins: zsh-syntax-highlighting and zsh-autosuggestions
+.PHONY: zsh-plugins
+zsh-plugins: oh-my-zsh
+	@echo "📦 Installing zsh plugins..."; \
+	if [ ! -d "$(ZSH_PLUGINS_DIR)/zsh-syntax-highlighting" ]; then \
+		git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$(ZSH_PLUGINS_DIR)/zsh-syntax-highlighting" && \
+		echo "✅ zsh-syntax-highlighting installed."; \
+	else \
+		echo "⚡ zsh-syntax-highlighting is already installed."; \
+	fi; \
+	if [ ! -d "$(ZSH_PLUGINS_DIR)/zsh-autosuggestions" ]; then \
+		git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git "$(ZSH_PLUGINS_DIR)/zsh-autosuggestions" && \
+		echo "✅ zsh-autosuggestions installed."; \
+	else \
+		echo "⚡ zsh-autosuggestions is already installed."; \
+	fi
+
 # fzf (the Go version). The --bin flag downloads the prebuilt binary but
 # DOES NOT touch your config files; shell integration lives in .zshrc/.bashrc.
 .PHONY: fzf
@@ -89,6 +123,17 @@ fzf:
 		echo "✅ FZF installed successfully."; \
 	else \
 		echo "⚡ FZF is already installed."; \
+	fi
+
+# Nerdfont for terminal icons (Meslo Nerd Font)
+.PHONY: nerdfont
+nerdfont: homebrew
+	@if ! "$(BREW)" list font-meslo-lg-nerd-font >/dev/null 2>&1; then \
+		echo "🔤 Nerdfont not found. Installing via Homebrew..."; \
+		"$(BREW)" install --cask font-meslo-lg-nerd-font && \
+		echo "✅ Nerdfont installed successfully. Set your terminal font to 'Meslo LG M Nerd Font'."; \
+	else \
+		echo "⚡ Nerdfont is already installed."; \
 	fi
 
 .PHONY: clean

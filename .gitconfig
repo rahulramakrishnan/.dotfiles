@@ -60,4 +60,5 @@
     pum = push origin main
     st = status
     standup = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cD) %C(bold blue)<%an>%Creset' --since yesterday --author rahul
+    sync = checkout main && pull origin main && checkout - && rebase main
     update = checkout master && pull origin master && checkout - && rebase master

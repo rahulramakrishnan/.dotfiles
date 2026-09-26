@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -66,6 +66,8 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   macos
+  zsh-syntax-highlighting
+  zsh-autosuggestions
 )
 
 # User configuration
@@ -97,7 +99,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# cx = cd + ls
+# cx = cd + ls (with optional venv activation)
 function cx() {
   if [ -d "env" ] ; then
     source env/bin/activate
@@ -108,6 +110,9 @@ function cx() {
     cd "$*" && ls -G
   fi
 }
+
+# gprune = prune local and remote branches merged to main or master
+alias gprune='git branch --merged | grep -v "^\*\|main\|master" | xargs -n 1 git branch -d && git remote prune origin'
 
 
 # --- Homebrew ----
@@ -125,6 +130,14 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 
 source $ZSH/oh-my-zsh.sh
+
+# Powerlevel10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # FZF Configuration
 if [ -d "$HOME/.fzf" ]; then
