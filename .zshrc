@@ -64,8 +64,8 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git,
-  osx,
+  git
+  macos
 )
 
 # User configuration
@@ -109,6 +109,14 @@ function cx() {
   fi
 }
 
+
+# --- Homebrew ----
+
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # --- GoLang ----
 
