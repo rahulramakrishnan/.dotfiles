@@ -75,3 +75,5 @@ tags
 
 # ignore go lang files
 vendor/*
+
+**/.claude/settings.local.json
